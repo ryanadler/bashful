@@ -30,4 +30,20 @@ bundle () {
 	fi
 }
 
+dsclient () {
+	echo && splunk dispatch '|rest /services/deployment/server/clients splunk_server=local | search clientName IN("'$1'") OR instanceName IN("'$1'") OR hostname IN("'$1'") | fields applications.*serverclasses | transpose | rename column as headers, "row 1" as serverclass | search serverclass=* | sort -headers | rex field="headers" "applications\.(?<app>\S+)\.serverclasses" | fields serverclass app | sort + serverclass | rex mode=sed field=serverclass "s/$/    /g" | eventstats dc(app) as appCount by serverclass | eval appCount=appCount." " | fields appCount serverclass app && echo
+}
+
+validate () {
+	# This function and the host variable is predicated on a naming convention of your Splunk Systems, and their location in local/inputs.conf
+        host=$(cat $SPLUNK_HOME/etc/system/local/inputs.conf | grep -oE "splunk_\w+")
+
+        if [[ "$host" == *"splunk_cm"* ]]; then
+                echo "Splunk Index Cluster Manager: Running `splunk validate cluster-bundle --check-restart`"
+                splunk validate cluster-bundle --check-restart
+
+        else
+                echo "This system is not identified as a Cluster Manager, exiting"
+        fi
+}
 
