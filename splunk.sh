@@ -7,7 +7,7 @@
 
 alias home='cd $SPLUNK_HOME/etc'
 alias splunkd='tail -f $SPLUNK_HOME/var/log/splunk/splunkd.log'
-alias reload='echo "/opt/splunk/bin/splunk reload deploy-server -timeout 180
+alias reload='echo "/opt/splunk/bin/splunk reload deploy-server -timeout 180'
 
 
 # Splunk Specific Functions
@@ -22,7 +22,7 @@ bundle () {
 
 	elif [[ "$host" == *"splunk_search_deployer"* ]]; then
 		target=$(cat $SPLUNK_HOME/var/log/splunk/conf.log | grep -oE https://[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+ | tail -1 | sed 's/https:\/\///g')
-		echo "Splunk Search Head Cluster Deployer: Running `splunk apply shcluster-bundle -target $target --answer-yes`
+		echo "Splunk Search Head Cluster Deployer: Running `splunk apply shcluster-bundle -target $target --answer-yes`"
 		splunk apply shcluster-bundle -target $target --answer-yes
 	else
 		echo "This system is not identified as either a Cluster Manager or Search Deployer, exiting"
