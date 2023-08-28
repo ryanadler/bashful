@@ -30,7 +30,7 @@ bundle () {
 }
 
 dsclient () {
-	echo && splunk dispatch '|rest /services/deployment/server/clients splunk_server=local | search clientName IN("'$1'") OR instanceName IN("'$1'") OR hostname IN("'$1'") | fields applications.*serverclasses | transpose | rename column as headers, "row 1" as serverclass | search serverclass=* | sort -headers | rex field="headers" "applications\.(?<app>\S+)\.serverclasses" | fields serverclass app | sort + serverclass | rex mode=sed field=serverclass "s/$/    /g" | eventstats dc(app) as appCount by serverclass | eval appCount=appCount." " | fields appCount serverclass app && echo
+	echo && splunk dispatch '|rest /services/deployment/server/clients splunk_server=local | search clientName IN("'$1'") OR instanceName IN("'$1'") OR hostname IN("'$1'") | fields applications.*serverclasses | transpose | rename column as headers, "row 1" as serverclass | search serverclass=* | sort -headers | rex field="headers" "applications\.(?<app>\S+)\.serverclasses" | fields serverclass app | sort + serverclass | rex mode=sed field=serverclass "s/$/    /g" | eventstats dc(app) as appCount by serverclass | eval appCount=appCount." " | fields appCount serverclass app' && echo
 }
 
 validate () {
