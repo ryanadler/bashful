@@ -17,11 +17,11 @@ bundle () {
 	# This function and the host variable is predicated on a naming convention of your Splunk Systems, and their location in local/inputs.conf
 	host=$(cat $SPLUNK_HOME/etc/system/local/inputs.conf | grep -oE "splunk_\w+")
 	
-	if [[ "$host" == *"splunk_cm"* ]]; then
+	if [[ "$host" == *"splunk_cluster_manager"* ]]; then
 		echo "Splunk Index Cluster Manager: Running `splunk apply cluster-bundle`"
 		splunk apply cluster-bundle
 
-	elif [[ "$host" == *"splunk_shcd"* ]]; then
+	elif [[ "$host" == *"splunk_search_deployer"* ]]; then
 		target=$(cat $SPLUNK_HOME/var/log/splunk/conf.log | grep -oE https://[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+ | tail -1 | sed 's/https:\/\///g')
 		echo "Splunk Search Head Cluster Deployer: Running `splunk apply shcluster-bundle -target $target --answer-yes`
 		splunk apply shcluster-bundle -target $target --answer-yes
@@ -38,7 +38,7 @@ validate () {
 	# This function and the host variable is predicated on a naming convention of your Splunk Systems, and their location in local/inputs.conf
         host=$(cat $SPLUNK_HOME/etc/system/local/inputs.conf | grep -oE "splunk_\w+")
 
-        if [[ "$host" == *"splunk_cm"* ]]; then
+        if [[ "$host" == *"splunk_cluster_manager"* ]]; then
                 echo "Splunk Index Cluster Manager: Running `splunk validate cluster-bundle --check-restart`"
                 splunk validate cluster-bundle --check-restart
 
