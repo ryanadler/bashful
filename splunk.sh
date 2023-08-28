@@ -1,6 +1,5 @@
 # These alises are designed for use on Splunk Enterprise systems as shortcuts for admins
-# It is recommended you add the following line to the end of your `/etc/profile` :
-# . /opt/splunk/bin/setSplunkEnv
+# It is recommended you add the following line to the end of your `/etc/profile`: . /opt/splunk/bin/setSplunkEnv
 # This will set your Splunk Home enviroment for the system
 # You can also consider adding :
 # echo && systemctl status splunk | grep -C 3 Active && echo
