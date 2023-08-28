@@ -11,9 +11,9 @@ alias v='vim'
 # Credential Specific Entries
 function remake () {
 	if [[ "$1" == "aws" ]]; then
-		rm -f ~/.aws/credentials.gpg && gpg --output ~/.aws/credentials.gpg --symmetric ~/.aws/credentials'
+		rm -f ~/.aws/credentials.gpg && gpg --output ~/.aws/credentials.gpg --symmetric ~/.aws/credentials
 	elif [[ "$1" == "git" ]]; then
-		rm -f ~/.git-credentials.gpg && gpg --output ~/.git-credentials.gpg --symmetric ~/.git-credentials'
+		rm -f ~/.git-credentials.gpg && gpg --output ~/.git-credentials.gpg --symmetric ~/.git-credentials
 	else
 		echo "command not recognized, please use either an argument of `aws` or `git`"
 	fi
