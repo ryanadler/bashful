@@ -43,3 +43,18 @@ export PS1="\t \u \[\033[32m\]\w\[\033[33m\]\$(GIT_PS1_SHOWUNTRACKEDFILES=1 GIT_
 
 export HISTTIMEFORMAT='%F %T  '
 
+master () {
+        status=$(git branch | grep -E "main|master" | sed 's/* //g' | sed 's/  //g')
+
+        if [ $status == "main" ]; then
+
+                echo "main branch identified"
+                git checkout main && git pull
+
+        elif [ $status == "master" ]; then
+                echo "master branch identified"
+                git checkout master && git pull
+        else
+                echo "error"
+        fi
+}
