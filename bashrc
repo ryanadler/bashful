@@ -64,3 +64,7 @@ export PS1="\t \u \[\033[32m\]\w\[\033[33m\]\$(GIT_PS1_SHOWUNTRACKEDFILES=1 GIT_
 
 #source ~/git-prompt.sh
 #source ~/splunk.sh
+
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+	  exec tmux
+fi
