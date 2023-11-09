@@ -39,10 +39,8 @@ function parse_git_dirty {
 function parse_git_branch {
 	  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/ (\1$(parse_git_dirty))/"
   }
-export PS1="\t \u \[\033[32m\]\w\[\033[33m\]\$(GIT_PS1_SHOWUNTRACKEDFILES=1 GIT_PS1_SHOWDIRTYSTATE=1 __git_ps1)\[\033[00m\]\n$ "
 
-export HISTTIMEFORMAT='%F %T  '
-
+# Git Master/Main Checkout Function
 master () {
         status=$(git branch | grep -E "main|master" | sed 's/* //g' | sed 's/  //g')
 
@@ -58,3 +56,11 @@ master () {
                 echo "error"
         fi
 }
+
+# Bash Exports
+export HISTTIMEFORMAT='%F %T  '
+export LS_COLORS=$LS_COLORS:'ow=1;34:';
+export PS1="\t \u \[\033[32m\]\w\[\033[33m\]\$(GIT_PS1_SHOWUNTRACKEDFILES=1 GIT_PS1_SHOWDIRTYSTATE=1 __git_ps1)\[\033[00m\]\n$ "
+
+#source ~/git-prompt.sh
+#source ~/splunk.sh
