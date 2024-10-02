@@ -57,6 +57,20 @@ master () {
         fi
 }
 
+main () {
+        status=$(git branch | grep -E "main|master" | sed 's/* //g' | sed 's/  //g')
+
+        if [ $status == "main" ]; then
+
+                echo "main branch identified"
+                git checkout main && git pull
+
+        elif [ $status == "master" ]; then
+                echo "master branch identified"
+                git checkout master && git pull
+        else                                                                                                                                        echo "error"
+        fi                                                                                                                          }
+
 # Bash Exports
 export HISTTIMEFORMAT='%F %T  '
 export LS_COLORS=$LS_COLORS:'ow=1;34:';
