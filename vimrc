@@ -6,4 +6,8 @@ set ignorecase
 set hlsearch
 set laststatus=2
 set statusline+=%F
+filetype on
+filetype plugin on
+filetype indent on
+syntax on
 
